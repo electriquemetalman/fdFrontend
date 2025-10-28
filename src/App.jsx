@@ -6,6 +6,7 @@ import Cart from './pages/Cart/Cart'
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
 import Footer from './components/Footer/Footer'
 import LoginPopup from './components/LoginPopup/LoginPopup'
+import ScrollToTopButton from './components/ScroolTopButton/ScrollToTopButton'
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
           <Route path='/order' element={<PlaceOrder />} />
         </Routes>
       </div>
+      <ScrollToTopButton />
       <Footer />
     </>
     
