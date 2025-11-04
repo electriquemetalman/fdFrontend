@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StoreContext } from './StoreContext';
 import { food_list } from '../assets/assets';
 
 const StoreContextProvider = ({ children }) => {
 
   const [cartItems, setCartItems] = React.useState({});
+  const url = "http://localhost:4000";
+  const [token, setToken] = React.useState("");
 
   const addToCart = (itemId) => {
     if(!cartItems[itemId]) {
@@ -29,13 +31,22 @@ const StoreContextProvider = ({ children }) => {
     return totalAmount;
   }
 
+  useEffect(() => {
+    if (localStorage.getItem("token")){
+      setToken(localStorage.getItem("token"))
+    }
+  },[])
+
   const contextValue = {
     food_list,
     cartItems,
     setCartItems,
     addToCart,
     removeFromCart,
-    getTotalCartAmount
+    getTotalCartAmount,
+    url,
+    token,
+    setToken
   };
 
   return (

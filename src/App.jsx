@@ -7,6 +7,8 @@ import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
 import Footer from './components/Footer/Footer'
 import LoginPopup from './components/LoginPopup/LoginPopup'
 import ScrollToTopButton from './components/ScroolTopButton/ScrollToTopButton'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
 
@@ -16,6 +18,7 @@ const App = () => {
     <>
     {showLogin?<LoginPopup setShowLogin={setShowLogin} />:<></>}
       <div className='app'>
+        <ToastContainer/>
         <Navbar setShowLogin={setShowLogin} />
         <Routes>
           <Route path='/' element={<Home />} />
