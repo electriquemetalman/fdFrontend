@@ -16,7 +16,7 @@ const MyOrders = () => {
         } catch (error) {
             console.log(error)
         }
-    },[token, url]) 
+    },[token, url]);
 
     useEffect(() => {
         if(token) {
@@ -44,7 +44,7 @@ const MyOrders = () => {
                         <p>${order.amount}.00</p>
                         <p>Items: {order.items.length}</p>
                         <p><span>&#x25cf;</span> <b>{order.status}</b></p>
-                        <button>Track order</button>
+                        <button onClick={fetchOrders}>Track order</button>
                     </div>
                 )
             })}
