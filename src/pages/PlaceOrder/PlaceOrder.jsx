@@ -43,7 +43,7 @@ const PlaceOrder = () => {
       }
 
       console.log(orderData)
-      let response = await axios.post(url+"/api/order/place", orderData, {headers: {token}});
+      let response = await axios.post(url+"/api/order/place", orderData, {headers: {Authorization: `Bearer ${token}`}});
       if (response.data.success){
         const {session_url} = response.data;
         window.location.replace(session_url);

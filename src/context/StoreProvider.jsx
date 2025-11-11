@@ -18,14 +18,14 @@ const StoreContextProvider = ({ children }) => {
     }
 
     if (token) {
-      await axios.post(url+"/api/cart/add", {itemId}, {headers: {token}})
+      await axios.post(url+"/api/cart/add", {itemId}, {headers: {Authorization: `Bearer ${token}`}})
     }
   }
 
   const removeFromCart = async (itemId) => {
     setCartItems((prev) => ({...prev, [itemId]:prev[itemId]-1}));
      if (token) {
-      await axios.post(url+"/api/cart/remove", {itemId}, {headers: {token}})
+      await axios.post(url+"/api/cart/remove", {itemId}, {headers: {Authorization: `Bearer ${token}`}})
     }
   }
 
@@ -46,7 +46,7 @@ const StoreContextProvider = ({ children }) => {
   }
 
   const loadCartData = async (token) => {
-    const response = await axios.post(url+"/api/cart/display", {}, {headers: {token}})
+    const response = await axios.post(url+"/api/cart/display", {}, {headers: {Authorization: `Bearer ${token}`}})
     setCartItems(response.data.data);
   }
 

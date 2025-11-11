@@ -11,7 +11,7 @@ const MyOrders = () => {
 
     const fetchOrders = useCallback ( async () => {
         try {
-            const response = await axios.get(url+"/api/order/userorders", {headers:{token}});
+            const response = await axios.get(url+"/api/order/userorders", {headers:{Authorization: `Bearer ${token}`}});
             setData(response.data.orders);
         } catch (error) {
             console.log(error)
