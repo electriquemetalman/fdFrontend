@@ -17,6 +17,14 @@
     gap: 80px;
 }
 
+.footer-logo{
+    display: flex;
+}
+
+.footer-logo img{
+    width: 150px;
+}
+
 .footer-content-left , .footer-content-right , .footer-content-center {
     display: flex;
     flex-direction: column;
