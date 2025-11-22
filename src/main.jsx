@@ -4,11 +4,14 @@ import './index.css'
 import App from './App.jsx'
 import {BrowserRouter} from 'react-router-dom'
 import StoreContextProvider from './context/StoreProvider.jsx';
+import NotificationProvider from './context/NotificationProvider.jsx';
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <StoreContextProvider>
-      <App />
+      <NotificationProvider>
+        <App />
+      </NotificationProvider>
     </StoreContextProvider>
   </BrowserRouter>
 )

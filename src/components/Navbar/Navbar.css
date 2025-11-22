@@ -102,6 +102,58 @@
     width: 20px;
 }
 
+.notif-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.notification-icon {
+  width: 30px;
+}
+
+.notif-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 10px;
+  height: 10px;
+  background: red;
+  border-radius: 50%;
+}
+
+.notif-dropdown {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  width: 220px;
+  background: #48484a;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid tomato;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 999;
+}
+
+.notif-item {
+  background: #333;
+  padding: 8px;
+  border-radius: 4px;
+  border-left: 3px solid tomato;
+  font-size: 14px;
+}
+
+.notif-item:hover {
+  background: #3e3e3e;
+}
+
+.no-notif {
+  text-align: center;
+  opacity: 0.7;
+}
+
 
 @media (max-width:1050px){
     .navbar .logo{
