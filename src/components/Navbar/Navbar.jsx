@@ -4,13 +4,24 @@ import './Navbar.css';
 import {assets} from '../../assets/assets';
 import { Link, useNavigate } from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext';
+import { NotificationContext } from '../../context/NotificationContext.jsx';
 import { toast } from "react-toastify";
 
 const Navbar = ({setShowLogin}) => {
 
     const [menu, setMenu] = useState("home");
     const {getTotalCartAmount, token,setToken} = React.useContext(StoreContext);
+    const { notifications, unread, markAllAsRead } = React.useContext(NotificationContext);
     const navigate = useNavigate();
+
+    const [showNotifications, setShowNotifications] = React.useState(false);
+
+    const toggleNotifications = () => {
+      setShowNotifications(!showNotifications);
+      if (unread > 0) {
+        markAllAsRead();
+      }
+    };
 
     const logout = () => {
       localStorage.removeItem("token");
@@ -31,6 +42,30 @@ const Navbar = ({setShowLogin}) => {
       </ul>
       <div className="navbar-right">
         <img src={assets.search_icon} alt="" className="search"/>
+        <div className="notif-container">
+          <img
+            src={assets.notification_icon}
+            alt="notifications"
+            className="notification-icon"
+            onClick={toggleNotifications}
+          />
+        
+          {unread > 0 && <span className="notif-badge">{unread}</span>}
+        
+          {showNotifications && (
+              <div className="notif-dropdown">
+                  {notifications.length === 0 ? (
+                      <p className="no-notif">No notification</p>
+                  ) : (
+                      notifications.map((notif, index) => (
+                        <div key={index} className="notif-item">
+                          <p>{notif.message}</p>
+                        </div>
+                      ))
+                  )}
+              </div>
+          )}
+        </div>
         <div className="navbar-search-icon">
             <Link to="/cart"><img src={assets.basket_icon} alt="" className="basket"/></Link>
             <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
