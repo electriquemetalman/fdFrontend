@@ -25,21 +25,26 @@ const LoginPopup = ({setShowLogin}) => {
     const  onLogin = async(event) => {
         event.preventDefault();
         let newUrl = url;
-        if (currState === "Login") {
-            newUrl += "/api/user/login"
-        } else {
-            newUrl += "/api/user/register"
-        }
 
-        const response = await axios.post(newUrl, data);
+        try{
+            if (currState === "Login") {
+                newUrl += "/api/user/login"
+            } else {
+                newUrl += "/api/user/register"
+            }
 
-        if (response.data.success) {
-            setToken(response.data.token);
-            localStorage.setItem("token", response.data.token)
-            setShowLogin(false)
-            toast.success(response.data.message);
-        } else {
-            toast.error(response.data.message);
+            const response = await axios.post(newUrl, data);
+
+            if (response.data.success) {
+                setToken(response.data.token);
+                localStorage.setItem("token", response.data.token)
+                setShowLogin(false)
+                toast.success(response.data.message);
+            } else {
+                toast.error(response.data.message);
+            }
+        } catch (error) {
+            toast.error(error.message);
         }
     }
 
