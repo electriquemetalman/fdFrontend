@@ -1,16 +1,18 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import './Navbar.css';
 import {assets} from '../../assets/assets';
 import { Link, useNavigate } from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext';
 import { NotificationContext } from '../../context/NotificationContext.jsx';
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const Navbar = ({setShowLogin}) => {
 
     const [menu, setMenu] = useState("home");
-    const {getTotalCartAmount, token,setToken} = React.useContext(StoreContext);
+    const [user, setUser] = useState(null);
+    const {getTotalCartAmount, token, setToken, url} = React.useContext(StoreContext);
     const { notifications, unread, markAllAsRead } = React.useContext(NotificationContext);
     const navigate = useNavigate();
 
@@ -30,6 +32,22 @@ const Navbar = ({setShowLogin}) => {
       toast.success("Successful Logout");
 
     }
+
+    const fetchUser = useCallback(async () => {
+    try {
+      const response = await axios.get(url + "/api/user/getUser", {headers: {Authorization: `Bearer ${token}`}});
+      if (response.data.success) {
+        setUser(response.data.user);
+      }
+    } catch (error) {
+      console.error("Failed to fetch user:", error);
+    }
+  }, [url, token]);
+
+  React.useEffect(() => {
+    if (token)
+    fetchUser();
+  }, [fetchUser, token]);
 
   return (
     <div className="navbar">
@@ -72,11 +90,16 @@ const Navbar = ({setShowLogin}) => {
         </div>
         {!token ? <button onClick={()=>setShowLogin(true)}  className="login-btn">Login</button>
           :<div className='navbar-profile'>
-            <img src={assets.profile_icon} alt='' />
+            <img src={user && user.profile ? `${url}/profiles/` + user.profile : assets.profile_icon} alt='' className='profileImg' />
             <ul className='nav-profile-dropdown'>
               <li onClick={() => navigate('/myorders')}>
                 <img src={assets.bag_icon} alt=''/>
                 <p>Orders</p>
+              </li>
+              <hr />
+              <li onClick={() => navigate('/profile')}>
+                <img src={assets.bag_icon} alt=''/>
+                <p>Profile</p>
               </li>
               <hr />
               <li onClick={logout}>
